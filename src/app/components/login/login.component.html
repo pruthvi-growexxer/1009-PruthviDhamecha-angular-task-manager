@@ -1,0 +1,63 @@
+<div class="container login_form">
+  <form #loginForm="ngForm" (ngSubmit)="loginForm.form.valid && login(loginForm)">
+    <h1>Welcome Back</h1>
+    <p>Enter your credentials to continue.</p>
+
+    <div class="input-wrapper">
+      <input
+        id="email"
+        type="email"
+        class="rounded form-control"
+        name="email"
+        placeholder="Email"
+        required
+        #emailid="ngModel"
+        pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+        [(ngModel)]="email"
+      />
+      <div *ngIf="emailid.errors && (emailid.touched || loginForm.submitted)">
+        <small class="text-danger" *ngIf="emailid.errors?.['required']"
+          >Email is required</small
+        >
+
+        <small class="text-danger" *ngIf="emailid.errors?.['pattern']"
+          >Email should match with pattern</small
+        >
+      </div>
+    </div>
+
+    <div class="input-wrapper">
+      <input
+        id="password"
+        type="password"
+        class="rounded form-control"
+        name="password"
+        placeholder="Password"
+        required
+        #pass="ngModel"
+        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+        [(ngModel)]="password"
+      />
+      <div *ngIf="pass.errors && (pass.touched || loginForm.submitted)">
+        <small class="text-danger" *ngIf="pass.errors?.['required']"
+          >Password is required</small
+        >
+
+        <small class="text-danger" *ngIf="pass.errors?.['pattern']"
+          >Password should match with pattern</small
+        >
+      </div>
+    </div>
+
+    <div>
+      <button type="submit">
+        Sign In
+        <i class="bx bx-right-arrow-alt"></i>
+      </button>
+    </div>
+
+    <div class="mt-3">
+      <p>Not a member? <a [routerLink]="['/register']">Register</a></p>
+    </div>
+  </form>
+</div>
