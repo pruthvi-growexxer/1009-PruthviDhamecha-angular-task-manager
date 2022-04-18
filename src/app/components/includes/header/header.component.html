@@ -1,0 +1,20 @@
+
+<nav class="navbar navbar-expand-xl navbar-light bg-light">
+	<a [routerLink]="['dashboard']" class="navbar-brand"><i class="fa fa-cube"></i>Task<b>Manager</b></a>
+	<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<!-- Collection of nav links, forms, and other content for toggling -->
+	<div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
+		<div class="navbar-nav">
+			<a [routerLink]="['dashboard']" class="nav-item nav-link active"><i class="fa fa-home"></i> Home</a>
+      <a [routerLink]="['profile']" class="nav-item nav-link"><i class="fa fa-user-o"></i> My Profile</a>
+			<a [routerLink]="['about']" class="nav-item nav-link"><i class="fa fa-info-circle"></i> About</a>
+			<a [routerLink]="['help']" class="nav-item nav-link"><i class="fa fa-question-circle"></i> Help</a>
+		</div>
+		<div class="navbar-nav navbar-left">
+      <a [routerLink]="['profile']" class="nav-item nav-link"><strong> {{authService.active_user?.name | uppercase}} </strong></a>
+      <a (click)="authService.logout()" class="nav-item nav-link"><i class="fa fa-sign-out"></i> Logout</a>
+		</div>
+	</div>
+</nav>

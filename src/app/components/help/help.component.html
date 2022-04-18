@@ -1,0 +1,68 @@
+<div class="panel panel-primary bg-light float-none">
+  <div class="panel-heading p-3 text-center">
+    <h3 class="panel-title text-uppercase">Help</h3>
+  </div>
+  <div class="panel-body">
+    <form [formGroup]="helpForm" class="edit_profile_form">
+      <div class="row">
+        <div class="col-md-1 col-lg-1"></div>
+        <div class="col-md-10 col-lg-10">
+          <table class="table table-user-information">
+            <tbody>
+              <tr>
+                <td><strong>Comment</strong></td>
+                <td>
+                  <textarea
+                    id="comment"
+                    type="text"
+                    class="rounded form-control"
+                    formControlName="comment"
+                    required
+                  ></textarea>
+                  <div
+                    *ngIf="
+                      helpForm.get('comment')?.invalid &&
+                      helpForm.get('comment')?.errors &&
+                      (helpForm.get('comment')?.dirty ||
+                        helpForm.get('comment')?.touched)
+                    "
+                  >
+                    <small
+                      class="text-danger"
+                      *ngIf="
+                        helpForm.get('comment')?.hasError('required')
+                      "
+                    >
+                      This field is required.
+                    </small>
+                    <small
+                      class="text-danger"
+                      *ngIf="
+                        helpForm.get('comment')?.hasError('minlength')
+                      "
+                    >
+                      The minimum length for this field is
+                      {{helpForm.get('comment')?.errors?.['minlength'].requiredLength}}
+                      characters.
+                    </small>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-md-1 col-lg-1"></div>
+        <div class="col-md-12 text-center">
+          <button
+            type="submit"
+            class="btn btn-warning w-25 mt-4 mx-2"
+            [disabled]="!helpForm.valid"
+            (click)="onCreateTask()"
+          >
+            Create Task
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

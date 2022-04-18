@@ -25,7 +25,6 @@ export class AuthService {
         next: data => {
           this.setToken(data.token);
           this.setActiveUser(data.user);
-          console.log(data);
           this.router.navigate(['/dashboard']);
         },
         error: error => {
@@ -36,7 +35,6 @@ export class AuthService {
   }
 
   register(registerForm: any) {
-    // console.log(registerForm);
     const params = {
       name: registerForm.name,
       email: registerForm.email,
@@ -44,23 +42,27 @@ export class AuthService {
       age: registerForm.age
     };
 
-      this.http.post<any>('http://localhost:3000/api/users', params)
-        .subscribe({
-          next: data => {
-            this.setToken(data.token);
-            this.setActiveUser(data.user);
-            this.router.navigate(['/dashboard']);
-          },
-          error: error => {
-            console.error('There was an error!', error);
-            console.log('Invalid Credentials');
-          }
-        });
+    this.http.post<any>('http://localhost:3000/api/users', params)
+      .subscribe({
+        next: data => {
+          this.router.navigate(['/']);
+        },
+        error: error => {
+          console.error('There was an error!', error);
+          console.log('Invalid Records');
+        }
+      });
+  }
 
+  logout(){
+    localStorage.removeItem('token');
+    this.token = null;
+    this.active_user = null;
+    this.router.navigate(['/login']);
   }
 
   setToken(token: string) {
-    localStorage.setItem('token',token);
+    localStorage.setItem('token', token);
     this.token = token;
   }
 

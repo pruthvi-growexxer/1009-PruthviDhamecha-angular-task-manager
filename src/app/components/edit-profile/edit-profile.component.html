@@ -1,0 +1,118 @@
+<div class="panel panel-primary bg-light float-none">
+  <div class="panel-heading p-3 text-center">
+    <h3 class="panel-title text-uppercase">Profile</h3>
+  </div>
+  <div class="panel-body">
+    <form [formGroup]="editProfile" class="edit_profile_form">
+      <div class="row">
+        <div class="col-md-3 col-lg-3" align="center">
+          <img
+            alt="User Pic"
+            src="https://hub.dummyapis.com/Image?text={{
+              authService.active_user?.name | uppercase
+            }}&height=200&width=200"
+            class="img-circle img-responsive rounded"
+          />
+        </div>
+        <div class="col-md-9 col-lg-9">
+          <table class="table table-user-information">
+            <tbody>
+              <tr>
+                <td><strong>Id</strong></td>
+                <td>{{ authService.active_user?.__v }}</td>
+              </tr>
+              <tr>
+                <td><strong>Name</strong></td>
+                <td>
+                  <input
+                    id="name"
+                    type="text"
+                    class="rounded form-control"
+                    value="{{authService?.active_user?.name}}"
+                    formControlName="name"
+                    required
+                  />
+                  <div
+                    *ngIf="
+                      editProfile.get('name')?.invalid &&
+                      editProfile.get('name')?.errors &&
+                      (editProfile.get('name')?.dirty ||
+                        editProfile.get('name')?.touched)
+                    "
+                  >
+                    <small
+                      class="text-danger"
+                      *ngIf="editProfile.get('name')?.hasError('required')"
+                    >
+                      This field is required.
+                    </small>
+                    <small
+                      class="text-danger"
+                      *ngIf="editProfile.get('name')?.hasError('minlength')"
+                    >
+                      The minimum length for this field is
+                      {{editProfile.get('name')?.errors?.['minlength'].requiredLength}}
+                      characters.
+                    </small>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Email</strong></td>
+                <td>{{ authService.active_user?.email }}</td>
+              </tr>
+              <tr>
+                <td><strong>Age</strong></td>
+                <td>
+                  <input
+                    id="age"
+                    type="text"
+                    class="rounded form-control"
+                    value="{{authService?.active_user?.age}}"
+                    formControlName="age"
+                    required
+                  />
+                  <div
+                    *ngIf="
+                      editProfile.get('age')?.invalid &&
+                      editProfile.get('age')?.errors &&
+                      (editProfile.get('age')?.dirty ||
+                        editProfile.get('age')?.touched)
+                    "
+                  >
+                    <small
+                      class="text-danger"
+                      *ngIf="editProfile.get('age')?.hasError('required')"
+                    >
+                      This field is required.
+                    </small>
+                    <small
+                      class="text-danger"
+                      *ngIf="editProfile.get('age')?.hasError('pattern')"
+                    >
+                      Age must be between 10 and 99.
+                    </small>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Last Updated At</strong></td>
+                <td>{{ authService.active_user?.updatedAt | date }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-md-12 text-center">
+          <button
+            type="submit"
+            class="btn btn-warning w-25 mt-4 mx-2"
+            [disabled]="!editProfile.valid"
+            (click)="onEditProfile()"
+          >
+            Update Profile
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

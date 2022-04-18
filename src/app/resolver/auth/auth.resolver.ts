@@ -13,8 +13,8 @@ import { AuthService } from '../../services/auth/auth.service';
 })
 export class AuthResolver implements Resolve<any> {
   constructor(
-    private readonly auth:AuthService,
-    private http: HttpClient
+    private readonly authService:AuthService,
+    private httpClient: HttpClient
   ){
 
   }
@@ -25,9 +25,9 @@ export class AuthResolver implements Resolve<any> {
       'Authorization': "Bearer " + localStorage.getItem('token'),
     });
 
-    this.http.get<any>('http://localhost:3000/api/users/me',{ headers: headers }).subscribe({
+    this.httpClient.get<any>('http://localhost:3000/api/users/me',{ headers: headers }).subscribe({
         next: data => {
-          this.auth.setActiveUser(data);
+          this.authService.setActiveUser(data);
         },
         error: error => {
           console.error('There was an error!', error);
